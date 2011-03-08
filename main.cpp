@@ -5,10 +5,7 @@ using namespace std;
 
 int main(int argsc, int** argv){
     intArray_t arr;
-   
-
-
-    //////
+ 
     while(1) {
     cout <<
      "\n| n | fst | lst | ins | rmv | RmvAll |A|P| < | : ";
