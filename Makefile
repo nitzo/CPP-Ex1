@@ -21,7 +21,7 @@ $(OBJDIR)/%.o: %.cpp
 all: bin $(TARGET)
 
 bin:
-	mkdir $(OBJDIR)
+	mkdir -p $(OBJDIR)
 
 clean:
 	rm -f $(OBJECTS) $(TARGET)

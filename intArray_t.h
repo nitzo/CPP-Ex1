@@ -31,6 +31,7 @@ public:
 		int prepend(int i, int* e); //Insert Element e before element in index i. Return 0 on fail 1 otherwise
 
 private:
+
 	//TODO: Move private members to cpp file??
 	int capacity;
 	int xpand_value;
@@ -38,6 +39,13 @@ private:
 
 
 	int **arr;
+
+	int shiftLeft(int i);
+	int shiftRight(int i);
+	int xpand();
+	int *find_p(int i, int v);
+
+
 
 
 

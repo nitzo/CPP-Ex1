@@ -104,24 +104,59 @@ int intArray_t::prepend(int i, int* e){
  * Shift all elements that are on the right hand side of index i into index i
  * Return 1 on success 0 otherwise
  */
-int shiftLeft(int i){
-	return 0;
+int intArray_t::shiftLeft(int i){
+
+	if (i > this->size - 1){
+		return 0;
+	}
+
+	for (int j = 0; j < this->size - 1; j++){
+		this->arr[j] = this->arr[j + 1];
+	}
+
+	return 1;
+
+
 }
 
 /*
  * Shift all elements on the right hand side of index i (including i) one index right
  * Return 1 on success 0 otherwise
  */
-int shiftRight(int i){
-	return 0;
+int intArray_t::shiftRight(int i){
+
+	if (i > this->capacity - 1 || this->size + 1 > this->capacity){
+		return 0;
+	}
+
+	for (int j = size + 1; j < i - 1; j--){
+		this->arr[j] = this->arr[j - 1];
+	}
+
+	return 1;
 }
+
+
 
 /*
  * Expand Array by xpand_value
  * Return 1 on success 0 otherwise
  */
-int xpand(){
-	return 0;
+int intArray_t::xpand(){
+
+	int **tmp = new int* [this->capacity + this->xpand_value];
+
+	if (tmp == 0){
+		return 0;
+	}
+
+	for (int i = 0; i < this->size; i++){
+		tmp[i] = this->arr[i];
+	}
+
+	this->capacity += this->xpand_value;
+
+	return 1;
 }
 
 /*
@@ -146,6 +181,17 @@ int remove_p(int i){
  * Find first element with value v starting from index i (including i)
  * Return element on success 0 otherwise (Not found)
  */
-int *find_p(int i, int v){
-	return 0;
+int *intArray_t::find_p(int i, int v){
+
+	int *res = 0;
+
+	for (int j = i; j < this->size; j++){
+
+		if (*(this->arr[j]) ==  v){
+			res = this->arr[j];
+			break;
+		}
+	}
+
+	return res;
 }
