@@ -8,23 +8,36 @@
 
 
 /**
- * Constructors & Destructor (
+ * Constructors & Destructor
  */
-//TODO: ADIR
-intArray_t::intArray_t(){
 
+
+/*
+ * Default Ctor
+ */
+intArray_t::intArray_t() {
+	initializeMembers(XPAND_VALUE);
 }
+
+/*
+ * Overload Ctor
+ */
+intArray_t::intArray_t(int size) {
+	initializeMembers(size);
+}
+
 //TODO: ADIR
 intArray_t::intArray_t(intArray_t& a){
 
 }
-//TODO: ADIR
-intArray_t::intArray_t(int size){
 
-}
-//TODO: ADIR
-intArray_t::~intArray_t(){
 
+
+/*
+ * Dtor
+ */
+intArray_t::~intArray_t() {
+	delete[] arr; //TODO: do we need to declare as arr*?
 }
 
 
@@ -72,12 +85,16 @@ int* intArray_t::find(int v){
 	return 0;
 }
 
+/*
+ * Remove the first element with the value "value"
+ * Return 0 if fail or the element otherwise
+ */
 int* intArray_t::remove(int v){
-	return 0;
+	return remove_p(v);
 }
 
 void intArray_t::removeAll(){
-
+	size = 0;
 }
 
 void intArray_t::removeAndDelete(int v){
@@ -163,35 +180,75 @@ int intArray_t::xpand(){
  * Insert element e at index i
  * Return 1 on success 0 otherwise
  */
-//TODO: ADIR
-int insert_p(int i, int* e){
-	return 0;
+int intArray_t::insert_p(int i, int* newElement){
+	if(size==capacity){			//xpand if necessary
+		xpand();
+	}
+	size++;						//increment size
+	arr[size] = newElement;		//assign newElement
+
+	return 1;					//TODO: when insert fail?
 }
 
+
 /*
- * Remove element at index i (DO NOT DELETE element)
- * Return 1 on success 0 otherwise
+ * Remove the first element with the value "value"
+ * return 0 if no such element, or the element otherwise
  */
-//TODO: ADIR
-int remove_p(int i){
-	return 0;
+int* intArray_t::remove_p(int value) {
+	int index = findIndex(0, value); //find the index of value
+
+	if (index == 0) //case no such element
+	{
+		return 0;
+	}
+
+	int* element = arr[0];
+	shiftLeft(index); //shift the elements left and override i the element in i index
+	size--; //decrease size by 1
+
+	return element;
 }
 
 /*
  * Find first element with value v starting from index i (including i)
  * Return element on success 0 otherwise (Not found)
  */
-int *intArray_t::find_p(int i, int v){
+//int *intArray_t::find_p(int i, int v){
+//
+//	int *res = 0;
+//
+//	for (int j = i; j < this->size; j++){
+//
+//		if (*(this->arr[j]) ==  v){
+//			res = this->arr[j];
+//			break;
+//		}
+//	}
+//
+//	return res;
+//}
 
-	int *res = 0;
-
-	for (int j = i; j < this->size; j++){
-
-		if (*(this->arr[j]) ==  v){
-			res = this->arr[j];
-			break;
+/*
+ * Return the first index of the element with value "value" starting from index i (including i)
+ * Return element on success 0 otherwise (Not found)
+ */
+int intArray_t::findIndex(int startIndex, int value) {
+	for (int i = startIndex; i < size; i++) //search the element in the array
+	{
+		if (((int) &arr[i]) == value) { //TODO: Fix this
+			return i;
 		}
 	}
 
-	return res;
+	return 0; //case element didn't found
+}
+
+/*
+ * Initialize class members
+ */
+void intArray_t::initializeMembers(int initialCapacity) {
+	this->capacity = initialCapacity;
+	this->size = 0;
+	this->arr = new int*[capacity];
 }

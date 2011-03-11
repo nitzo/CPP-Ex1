@@ -43,7 +43,11 @@ private:
 	int shiftLeft(int i);
 	int shiftRight(int i);
 	int xpand();
-	int *find_p(int i, int v);
+	//int *find_p(int i, int v); //TODO: Remove
+	void initializeMembers(int initialCapacity);
+	int findIndex(int startIndex, int value);
+	int* intArray_t::remove_p(int value);
+	int intArray_t::insert_p(int i, int* newElement);
 
 
 
