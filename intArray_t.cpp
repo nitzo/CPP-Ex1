@@ -4,14 +4,16 @@
  *  Created on: 07/03/2011
  *
  */
+#include <iostream>
 #include "intArray_t.h"
 
+using namespace std;
 
 /**
  * Constructors & Destructor
  */
 
-
+//TODO: Initilization Lists
 /*
  * Default Ctor
  */
@@ -60,29 +62,46 @@ const intArray_t& intArray_t::operator=(const intArray_t&){
 
 
 int intArray_t::getSize(){
-	return 0;
+	return this->size;
 }
 
 int intArray_t::getCapacity(){
-	return 0;
+	return this->capacity;
 }
 
 
 void intArray_t::insert(int* e){
 
+	insert_p(size, e);
+
 }
 
 int* intArray_t::getFirst(){
-	return 0;
+	if (this->size == 0) //Array is empty
+		return 0;
+	else
+		return this->arr[0];
 }
 
 int* intArray_t::getLast(){
-	return 0;
+	if (this->size == 0) //Array is empty
+		return 0;
+	else
+		return this->arr[size - 1];
 }
 
 
 int* intArray_t::find(int v){
-	return 0;
+
+	int i = findIndex(0, v);
+
+	if (i != -1){
+		return this->arr[i];
+	}
+	else
+		return 0;
+
+
 }
 
 /*
@@ -106,11 +125,14 @@ int intArray_t::removeAndDeleteAll(){
 }
 
 int intArray_t::append(int i, int* e){
-	return 0;
+
+	return insert_p(i + 1, e);
+
 }
 
 int intArray_t::prepend(int i, int* e){
-	return 0;
+
+	return insert_p(i, e);
 }
 
 /**
@@ -142,11 +164,11 @@ int intArray_t::shiftLeft(int i){
  */
 int intArray_t::shiftRight(int i){
 
-	if (i > this->capacity - 1 || this->size + 1 > this->capacity){
+	if (i > this->size || this->size + 1 > this->capacity){
 		return 0;
 	}
 
-	for (int j = size + 1; j < i - 1; j--){
+	for (int j = size; j > i; j--){
 		this->arr[j] = this->arr[j - 1];
 	}
 
@@ -181,13 +203,23 @@ int intArray_t::xpand(){
  * Return 1 on success 0 otherwise
  */
 int intArray_t::insert_p(int i, int* newElement){
-	if(size==capacity){			//xpand if necessary
-		xpand();
-	}
-	size++;						//increment size
-	arr[size] = newElement;		//assign newElement
 
-	return 1;					//TODO: when insert fail?
+	if (i > this->size){							//Attempt to insert after end of array
+		return 0;
+	}
+
+	if((this->size == this->capacity) && !xpand()){			//xpand if necessary. Return 0 on fail
+		return 0;
+	}
+
+	if (i < this->size && !shiftRight(i)){		//Move all elmemnts on the right hand size of i one position right
+		return 0;
+	}
+
+	this->size++;						//increment size
+	this->arr[i] = newElement;		//assign newElement
+
+	return 1;
 }
 
 
@@ -234,9 +266,10 @@ int* intArray_t::remove_p(int value) {
  * Return element on success 0 otherwise (Not found)
  */
 int intArray_t::findIndex(int startIndex, int value) {
-	for (int i = startIndex; i < size; i++) //search the element in the array
+
+	for (int i = startIndex; i < this->size; i++) //search the element in the array
 	{
-		if (((int) &arr[i]) == value) { //TODO: Fix this
+		if (*(this->arr[i]) == value) {
 			return i;
 		}
 	}
@@ -251,4 +284,22 @@ void intArray_t::initializeMembers(int initialCapacity) {
 	this->capacity = initialCapacity;
 	this->size = 0;
 	this->arr = new int*[capacity];
+}
+
+ostream& operator<< (ostream& os, intArray_t& a){
+
+
+	 os << "\n" << "Size: " <<  a.size << "\n" << "Capacity: "
+			<< a.capacity << "\n";
+
+	os << "| ";
+
+	for (int i = 0; i < a.size; i++) {
+		os << *(a.arr[i]) << " | ";
+	}
+
+	os << "\n";
+
+	return os;
+
 }

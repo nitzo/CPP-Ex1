@@ -1,6 +1,10 @@
 #ifndef _intArray_t_h
 #define _intArray_t_h
 
+#include <iostream>
+
+using namespace std;
+
 #define XPAND_VALUE 16
 
 class intArray_t {
@@ -16,12 +20,15 @@ public:
 
 
 		const intArray_t& operator=(const intArray_t&); //TODO: Should we implement?
+		friend ostream& operator<<(ostream &os, intArray_t& a); //TODO: Remove?
 
-		int getSize();				//Get size of array
-		int getCapacity();			//Get capacity of array
+
+
+		int getSize();				//Get size of array //TODO: Declare as inline const
+		int getCapacity();			//Get capacity of array //TODO: Declae as inline const
 		void insert(int* e);		//Insert element e at end of array
-		int* getFirst();			//Return first element e or 0 if fail (size == 0)
-		int* getLast();				//Return last element e or 0 if fail (size == 0)
+		int* getFirst();			//Return first element e or 0 if fail (size == 0) //TODO: Declare as inline const
+		int* getLast();				//Return last element e or 0 if fail (size == 0) //TODO: Declare as inline const
 		int* find(int v);			//Return 0 if not found
 		int* remove(int v);			//Remove ****first occurrence**** of v. Return 0 if fail element e otherwise
 		void removeAll();			//Remove all elements
@@ -54,6 +61,9 @@ private:
 
 
 };
+
+
+
 
 
 #endif
