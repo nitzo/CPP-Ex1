@@ -6,8 +6,14 @@ using namespace std;
 int main(int argsc, int** argv) {
 	intArray_t arr;
 
+	int *tmp = new int;
+
+	*tmp = 5;
+
+	arr.insert(tmp);
+
 	while (1) {
-		cout << "\n| n | fst | lst | ins | rmv | RmvAll |A|P| < | F | : ";
+		cout << "\n| n | fst | lst | ins | rmv | RmvAll | delete | DeleteAll |A|P| < | F | : ";
 
 		char c;
 		int *e;
@@ -15,7 +21,7 @@ int main(int argsc, int** argv) {
 		cin >> c;
 
 		if (c != 'n' && c != 'f' && c != 'l' && c != 'e' && c != 'i' && c
-				!= 'r' && c != 'R' && c != '<' && c != 'A' && c != 'P' && c != 'F')
+				!= 'r' && c != 'R' && c != '<' && c != 'A' && c != 'P' && c != 'F' && c != 'd' && c != 'D')
 			break;
 
 		switch (c) {
@@ -23,10 +29,32 @@ int main(int argsc, int** argv) {
 			cout << arr.getSize() << endl;
 			break;
 		case 'f':
-			cout << *arr.getFirst() << endl;
+
+			e = arr.getFirst();
+			if (e != 0)
+				cout << *e << endl;
+			else
+				cout << "Array Empty!";
 			break;
 		case 'l':
-			cout << *arr.getLast() << endl;
+			e = arr.getLast();
+			if (e != 0)
+				cout << *e << endl;
+			else
+				cout << "Array Empty!";
+			break;
+		case 'd': //Remove and delete
+
+			cout << "Input value of elements to delete :";
+			cin >> i;
+
+			arr.removeAndDelete(i);
+
+			break;
+		case 'D': //remove and delete all
+			cout << "Deleting whole array";
+
+			arr.removeAndDeleteAll();
 			break;
 
 		case 'i':
@@ -53,6 +81,11 @@ int main(int argsc, int** argv) {
 
 			break;
 		case 'R': // remove all
+
+			cout << "Removing all array";
+
+			arr.removeAll();
+
 			break;
 		case 'A': // append
 			e = new int;

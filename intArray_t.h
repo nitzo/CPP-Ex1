@@ -5,13 +5,15 @@
 
 using namespace std;
 
-#define XPAND_VALUE 16
+#define XPAND_VALUE 2
 
 class intArray_t {
 
 
 
 public:
+
+		//TODO: Initilazation lists!!!
 
 		intArray_t();				//Default CTOR
 		intArray_t(intArray_t& a);	//Copy CTOR
@@ -31,9 +33,9 @@ public:
 		int* getLast();				//Return last element e or 0 if fail (size == 0) //TODO: Declare as inline const
 		int* find(int v);			//Return 0 if not found
 		int* remove(int v);			//Remove ****first occurrence**** of v. Return 0 if fail element e otherwise
-		void removeAll();			//Remove all elements
+		void removeAll();			//Remove all elements	//TODO: Inline
 		void removeAndDelete(int v);//Remove and Free ****all occurrences**** of v.
-		int removeAndDeleteAll();	//Remove and Free Array.
+		void removeAndDeleteAll();	//Remove and Free Array.
 		int append(int i, int* e);	//Insert Element e after element in index i. Return 0 on fail 1 otherwise
 		int prepend(int i, int* e); //Insert Element e before element in index i. Return 0 on fail 1 otherwise
 
@@ -50,7 +52,6 @@ private:
 	int shiftLeft(int i);
 	int shiftRight(int i);
 	int xpand();
-	//int *find_p(int i, int v); //TODO: Remove
 	void initializeMembers(int initialCapacity);
 	int findIndex(int startIndex, int value);
 	int* intArray_t::remove_p(int value);

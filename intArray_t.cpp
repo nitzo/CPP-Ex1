@@ -113,15 +113,34 @@ int* intArray_t::remove(int v){
 }
 
 void intArray_t::removeAll(){
-	size = 0;
+	this->size = 0;
 }
 
 void intArray_t::removeAndDelete(int v){
 
+	int *e;
+
+	e = remove_p(v);	//Find & remove first match
+
+	while (e != 0){
+		delete e;		//Free memory
+
+		e = remove_p(v);	//Remove next match
+	}
+
 }
 
-int intArray_t::removeAndDeleteAll(){
-	return 0;
+void intArray_t::removeAndDeleteAll(){
+
+
+
+	//free all elemets in array
+	for (int i = 0; i < this->size; i++){
+		delete this->arr[i];
+	}
+
+	this->size = 0;
+
 }
 
 int intArray_t::append(int i, int* e){
@@ -195,6 +214,10 @@ int intArray_t::xpand(){
 
 	this->capacity += this->xpand_value;
 
+	delete arr;
+
+	this->arr = tmp;
+
 	return 1;
 }
 
@@ -211,6 +234,7 @@ int intArray_t::insert_p(int i, int* newElement){
 	if((this->size == this->capacity) && !xpand()){			//xpand if necessary. Return 0 on fail
 		return 0;
 	}
+
 
 	if (i < this->size && !shiftRight(i)){		//Move all elmemnts on the right hand size of i one position right
 		return 0;
@@ -265,6 +289,7 @@ int intArray_t::findIndex(int startIndex, int value) {
  */
 void intArray_t::initializeMembers(int initialCapacity) {
 	this->capacity = initialCapacity;
+	this->xpand_value = XPAND_VALUE;
 	this->size = 0;
 	this->arr = new int*[capacity];
 }
@@ -272,7 +297,7 @@ void intArray_t::initializeMembers(int initialCapacity) {
 ostream& operator<< (ostream& os, intArray_t& a){
 
 
-	 os << "\n" << "Size: " <<  a.size << "\n" << "Capacity: "
+	os << "\n" << "Size: " <<  a.size << "\n" << "Capacity: "
 			<< a.capacity << "\n";
 
 	os << "| ";
