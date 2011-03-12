@@ -28,7 +28,7 @@ intArray_t::intArray_t(int size) {
 	initializeMembers(size);
 }
 
-//TODO: ADIR
+
 intArray_t::intArray_t(intArray_t& a){
 
 }
@@ -39,7 +39,7 @@ intArray_t::intArray_t(intArray_t& a){
  * Dtor
  */
 intArray_t::~intArray_t() {
-	delete[] arr; //TODO: do we need to declare as arr*?
+	delete[] arr;
 }
 
 
@@ -47,11 +47,9 @@ intArray_t::~intArray_t() {
 /**
  * Operator overloading
  */
-//TODO: ADIR
 const intArray_t& intArray_t::operator=(const intArray_t&){
 
-
-	return *this; //TODO: Fix this!!!
+	return *this; //TODO: Implement
 
 }
 
@@ -61,11 +59,11 @@ const intArray_t& intArray_t::operator=(const intArray_t&){
  */
 
 
-int intArray_t::getSize(){
+inline int intArray_t::getSize() const{
 	return this->size;
 }
 
-int intArray_t::getCapacity(){
+inline int intArray_t::getCapacity() const{
 	return this->capacity;
 }
 
@@ -76,14 +74,14 @@ void intArray_t::insert(int* e){
 
 }
 
-int* intArray_t::getFirst(){
+int* intArray_t::getFirst() const{
 	if (this->size == 0) //Array is empty
 		return 0;
 	else
 		return this->arr[0];
 }
 
-int* intArray_t::getLast(){
+int* intArray_t::getLast() const{
 	if (this->size == 0) //Array is empty
 		return 0;
 	else
@@ -214,7 +212,7 @@ int intArray_t::xpand(){
 
 	this->capacity += this->xpand_value;
 
-	delete arr;
+	delete[] arr;
 
 	this->arr = tmp;
 

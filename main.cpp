@@ -6,11 +6,8 @@ using namespace std;
 int main(int argsc, int** argv) {
 	intArray_t arr;
 
-	int *tmp = new int;
+	//TODO: Go Over and fix if needed!
 
-	*tmp = 5;
-
-	arr.insert(tmp);
 
 	while (1) {
 		cout << "\n| n | fst | lst | ins | rmv | RmvAll | delete | DeleteAll |A|P| < | F | : ";
