@@ -145,11 +145,11 @@ int intArray_t::prepend(int i, int* e){
  */
 int intArray_t::shiftLeft(int i){
 
-	if (i > this->size - 1){
+	if (i > this->size){
 		return 0;
 	}
 
-	for (int j = 0; j < this->size - 1; j++){
+	for (int j = i; j < this->size - 1; j++){
 		this->arr[j] = this->arr[j + 1];
 	}
 
@@ -228,42 +228,25 @@ int intArray_t::insert_p(int i, int* newElement){
  * return 0 if no such element, or the element otherwise
  */
 int* intArray_t::remove_p(int value) {
+
 	int index = findIndex(0, value); //find the index of value
 
-	if (index == 0) //case no such element
+	if (index == -1) //case no such element
 	{
 		return 0;
 	}
 
-	int* element = arr[0];
-	shiftLeft(index); //shift the elements left and override i the element in i index
-	size--; //decrease size by 1
+	int* element = this->arr[index];
+	shiftLeft(index); //shift the elements in array left onto index i
+	this->size--; //decrease size by 1
 
 	return element;
 }
 
-/*
- * Find first element with value v starting from index i (including i)
- * Return element on success 0 otherwise (Not found)
- */
-//int *intArray_t::find_p(int i, int v){
-//
-//	int *res = 0;
-//
-//	for (int j = i; j < this->size; j++){
-//
-//		if (*(this->arr[j]) ==  v){
-//			res = this->arr[j];
-//			break;
-//		}
-//	}
-//
-//	return res;
-//}
 
 /*
  * Return the first index of the element with value "value" starting from index i (including i)
- * Return element on success 0 otherwise (Not found)
+ * Return index of element on success -1 otherwise (Not found)
  */
 int intArray_t::findIndex(int startIndex, int value) {
 
@@ -274,7 +257,7 @@ int intArray_t::findIndex(int startIndex, int value) {
 		}
 	}
 
-	return 0; //case element didn't found
+	return -1; //case element wasn't found
 }
 
 /*

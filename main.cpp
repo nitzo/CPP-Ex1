@@ -37,6 +37,20 @@ int main(int argsc, int** argv) {
 			arr.insert(e);
 			break;
 		case 'r': // remove
+
+			cout << "Input element value to remove :";
+			cin >> i;
+
+			e = arr.remove(i) ;
+
+			if (e == 0){
+				cout << "Element not found!";
+			}
+			else
+				cout << *e << " element removed!";
+
+			delete e;
+
 			break;
 		case 'R': // remove all
 			break;
