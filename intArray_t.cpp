@@ -13,7 +13,7 @@ using namespace std;
  * Constructors & Destructor
  */
 
-//TODO: Initilization Lists
+
 /*
  * Default Ctor
  */
@@ -30,7 +30,7 @@ intArray_t::intArray_t(int size) {
 
 
 intArray_t::intArray_t(intArray_t& a){
-
+	//TODO: Implement
 }
 
 
@@ -102,10 +102,7 @@ int* intArray_t::find(int v){
 
 }
 
-/*
- * Remove the first element with the value "value"
- * Return 0 if fail or the element otherwise
- */
+
 int* intArray_t::remove(int v){
 	return remove_p(v);
 }
@@ -234,7 +231,7 @@ int intArray_t::insert_p(int i, int* newElement){
 	}
 
 
-	if (i < this->size && !shiftRight(i)){		//Move all elmemnts on the right hand size of i one position right
+	if (i < this->size && !shiftRight(i)){		//Move all elmements on the right hand size of i one position right
 		return 0;
 	}
 
@@ -292,6 +289,10 @@ void intArray_t::initializeMembers(int initialCapacity) {
 	this->arr = new int*[capacity];
 }
 
+
+/*
+ * Print out array status and elements
+ */
 ostream& operator<< (ostream& os, intArray_t& a){
 
 
