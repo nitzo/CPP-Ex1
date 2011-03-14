@@ -5,7 +5,7 @@
 
 using namespace std;
 
-#define XPAND_VALUE 2
+#define XPAND_VALUE 16
 
 class intArray_t {
 
@@ -13,7 +13,7 @@ class intArray_t {
 
 public:
 
-		//TODO: Initilazation lists!!!
+
 
 		intArray_t();				//Default CTOR
 		intArray_t(int size);		//Create an array with size i
@@ -57,17 +57,9 @@ private:
 		int intArray_t::insert_p(int i, int* newElement);
 
 		//Prevent copy
-		const intArray_t& operator=(const intArray_t&); //TODO: IMPLEMENET
-		intArray_t(intArray_t& a);						//Copy CTOR //TODO: IMPLEMENT
-
-
-
-
+		const intArray_t& operator=(const intArray_t&); //Note: Not Implemented
+		intArray_t(intArray_t& a);						//Note: Not Implemented
 
 };
-
-
-
-
 
 #endif

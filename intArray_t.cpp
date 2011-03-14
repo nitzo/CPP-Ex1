@@ -1,8 +1,10 @@
 /*
  * intArray_t.cpp
+ * Created on: 07/03/2011
  *
- *  Created on: 07/03/2011
- *
+ * Assumption given at course forum:
+ * 1. same pointer will not be insert twice
+ * 2. avoid handle "new" failures
  */
 #include <iostream>
 #include "intArray_t.h"
@@ -18,20 +20,18 @@ using namespace std;
  * Default Ctor
  */
 intArray_t::intArray_t() {
-	initializeMembers(XPAND_VALUE);
+		size = 0;
+		initializeMembers(XPAND_VALUE);
 }
 
 /*
  * Overload Ctor
  */
-intArray_t::intArray_t(int size) {
+intArray_t::intArray_t(int initialSize) 
+	: size(initialSize){
 	initializeMembers(size);
 }
 
-
-intArray_t::intArray_t(intArray_t& a){
-	//TODO: Implement
-}
 
 
 
@@ -44,45 +44,35 @@ intArray_t::~intArray_t() {
 
 
 
-/**
- * Operator overloading
- */
-const intArray_t& intArray_t::operator=(const intArray_t&){
-
-	return *this; //TODO: Implement
-
-}
-
 
 /**
  * Public members
  */
 
-
-inline int intArray_t::getSize() const{
+int intArray_t::getSize() const{
 	return this->size;
 }
 
-inline int intArray_t::getCapacity() const{
+int intArray_t::getCapacity() const{
 	return this->capacity;
 }
 
 
 void intArray_t::insert(int* e){
 
-	insert_p(size, e);
+	insert_p(size, e);					//insert element
 
 }
 
 int* intArray_t::getFirst() const{
-	if (this->size == 0) //Array is empty
+	if (this->size == 0)				//Array is empty
 		return 0;
 	else
 		return this->arr[0];
 }
 
 int* intArray_t::getLast() const{
-	if (this->size == 0) //Array is empty
+	if (this->size == 0)				//Array is empty
 		return 0;
 	else
 		return this->arr[size - 1];
@@ -98,8 +88,6 @@ int* intArray_t::find(int v){
 	}
 	else
 		return 0;
-
-
 }
 
 
@@ -115,18 +103,17 @@ void intArray_t::removeAndDelete(int v){
 
 	int *e;
 
-	e = remove_p(v);	//Find & remove first match
+	e = remove_p(v);					//Find & remove first match
 
 	while (e != 0){
-		delete e;		//Free memory
+		delete e;						//Free memory
 
-		e = remove_p(v);	//Remove next match
+		e = remove_p(v);				//Remove next match
 	}
 
 }
 
 void intArray_t::removeAndDeleteAll(){
-
 
 
 	//free all elemets in array
@@ -222,6 +209,10 @@ int intArray_t::xpand(){
  */
 int intArray_t::insert_p(int i, int* newElement){
 
+	if( newElement == NULL){						//case NULL do nothing
+		return 0;
+	}
+
 	if (i > this->size){							//Attempt to insert after end of array
 		return 0;
 	}
@@ -285,7 +276,6 @@ int intArray_t::findIndex(int startIndex, int value) {
 void intArray_t::initializeMembers(int initialCapacity) {
 	this->capacity = initialCapacity;
 	this->xpand_value = XPAND_VALUE;
-	this->size = 0;
 	this->arr = new int*[capacity];
 }
 

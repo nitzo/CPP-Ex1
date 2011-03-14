@@ -4,10 +4,9 @@
 using namespace std;
 
 int main(int argsc, int** argv) {
-	intArray_t arr;
+	intArray_t arr, tmp;
 
-	//TODO: Go Over and fix if needed!
-
+	//Note: tmp array will be used to avoid memory leaks
 
 	while (1) {
 		cout << "\n| n | fst | lst | ins | rmv | RmvAll | delete | DeleteAll |A|P| < | F | : ";
@@ -45,6 +44,12 @@ int main(int argsc, int** argv) {
 			cout << "Input value of elements to delete :";
 			cin >> i;
 
+			//Remove all elemetes from tmp array with value i
+			e = tmp.remove(i);
+			while ( e != 0){
+				e = tmp.remove(i);
+			}
+
 			arr.removeAndDelete(i);
 
 			break;
@@ -52,6 +57,7 @@ int main(int argsc, int** argv) {
 			cout << "Deleting whole array";
 
 			arr.removeAndDeleteAll();
+			tmp.removeAll();	//Remove all elements from tmp (without deleting them)
 			break;
 
 		case 'i':
@@ -60,6 +66,7 @@ int main(int argsc, int** argv) {
 			cin >> *e;
 
 			arr.insert(e);
+			tmp.insert(e);
 			break;
 		case 'r': // remove
 
@@ -75,6 +82,7 @@ int main(int argsc, int** argv) {
 				cout << *e << " element removed!";
 
 			delete e;
+			tmp.remove(i);	//Remove elements from tmp array as well
 
 			break;
 		case 'R': // remove all
@@ -82,6 +90,8 @@ int main(int argsc, int** argv) {
 			cout << "Removing all array";
 
 			arr.removeAll();
+
+			tmp.removeAndDeleteAll();	//Free memory used to avoid leaks
 
 			break;
 		case 'A': // append
@@ -92,17 +102,19 @@ int main(int argsc, int** argv) {
 			cout << "Input index: ";
 			cin >> i;
 			arr.append(i, e);
+			tmp.append(i, e);
 
 			break;
 		case 'P': // prepend
 
 			e = new int;
-			cout << "Tnput element value :";
+			cout << "Input element value :";
 			cin >> *e;
 
 			cout << "Input index: ";
 			cin >> i;
 			arr.prepend(i, e);
+			tmp.prepend(i, e);
 			break;
 
 		case 'F': //find
@@ -120,9 +132,15 @@ int main(int argsc, int** argv) {
 			break;
 		case '<': // print array
 			cout << arr;
+
+			cout << tmp;
 			break;
 		}
 	}
+
+	//Free all memory used
+	tmp.removeAndDeleteAll();
+	arr.removeAll();
 
 	return 0;
 
